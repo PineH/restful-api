@@ -162,6 +162,8 @@ class Restful{
                 exit();
             }elseif ($this->_id<0){
                 throw new Exception('用户id不能为负数！');
+            }elseif (!is_numeric($this->_id)){
+                throw new Exception('用户id只能为数字！');
             }else{
                 $id = $this->_id;
                 $data = $this->_user->selectgetid($id);
@@ -176,11 +178,11 @@ class Restful{
         if ($this->_requestMethod == "PUT"){
             $body = $this->_getBodyParams();
             if (!isset($this->_id)){
-                throw new Exception('id值不能为空！',400);
+                throw new Exception('用户id值不能为空！',400);
             }else if (!is_numeric($this->_id)){
-                throw new Exception('id值只能为数字！',400);
+                throw new Exception('用户id值只能为数字！',400);
             }else if($this->_id<0){
-                throw new Exception('id不能为负数！');
+                throw new Exception('用户id不能为负数！');
             }else{
                 $id = $this->_id;
                 $data =$this->_user->updatagetid($id,$body['name'],$body['age'],$body['sex']);
@@ -193,18 +195,17 @@ class Restful{
          */
         if ($this->_requestMethod == "DELETE"){
             if (empty($this->_id)){
-                throw new Exception('id不能为空！',400);
+                throw new Exception('用户id不能为空！',400);
             }elseif (!is_numeric($this->_id)){
-                throw new Exception("id值只能为数字！",400);
+                throw new Exception("用户id值只能为数字！",400);
             }elseif ($this->_id<0){
-                throw new Exception('id不能为负数！');
+                throw new Exception('用户id不能为负数！');
             }else{
                 $id = $this->_id;
                 $data = $this->_user->deleteid($id);
                 exit();
             }
         }
-
     }
 
     /**
